@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>
+        YOLOv5 Quick Start  - Ross&#39;s blog
+      </title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-transform" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    
+    <meta name="theme-color" content="#000000" />
+    
+    <meta http-equiv="window-target" content="_top" />
+    
+    
+    <meta name="description" content="Get a quick start on YOLOv5 on Win11 and speed up detection using TensorRT" />
+    <meta name="generator" content="Hugo 0.101.0 with theme pure" />
+    <title>YOLOv5 Quick Start  - Ross&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="https://johnhillross.com/css/style.min.a85959a41e7abcc0db1f81f44bd264649303417f91b536e87dcde644340fea6d.css">
+    
+    <link rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.15.10/styles/github.min.css" async>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css" async>
+    <meta property="og:title" content="YOLOv5 Quick Start " />
+<meta property="og:description" content="Get a quick start on YOLOv5 on Win11 and speed up detection using TensorRT" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://johnhillross.com/2022/06/yolov5-quick-start/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-24T00:00:00+00:00" />
+<meta property="article:modified_time" content="2022-06-24T00:00:00+00:00" />
+
+<meta itemprop="name" content="YOLOv5 Quick Start ">
+<meta itemprop="description" content="Get a quick start on YOLOv5 on Win11 and speed up detection using TensorRT"><meta itemprop="datePublished" content="2022-06-24T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2022-06-24T00:00:00+00:00" />
+<meta itemprop="wordCount" content="4066">
+<meta itemprop="keywords" content="YOLOv5,Quick Start," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="YOLOv5 Quick Start "/>
+<meta name="twitter:description" content="Get a quick start on YOLOv5 on Win11 and speed up detection using TensorRT"/>
+
+    <!--[if lte IE 9]>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+      <![endif]-->
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+      <![endif]-->
+  </head>
+
+  
+  
+
+  <body class="main-center theme-grey" itemscope itemtype="http://schema.org/WebPage"><header class="header" itemscope itemtype="http://schema.org/WPHeader">
+    <div class="slimContent">
+      <div class="navbar-header">
+        <div class="profile-block text-center">
+          <a id="avatar" href="https://github.com/johnhillross" target="_blank">
+            <img class="img-circle img-rotate" src="https://johnhillross.com/avatar.gif" width="200" height="200">
+          </a>
+          <h2 id="name" class="hidden-xs hidden-sm">Ross</h2>
+          <h3 id="title" class="hidden-xs hidden-sm hidden-md">Coding Rookie</h3>
+          <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i>Foshan, China</small>
+        </div><div class="search" id="search-form-wrap">
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i
+                        class="icon icon-search"></i></button>
+            </span>
+        </div>
+        <div class="ins-search">
+            <div class="ins-search-mask"></div>
+            <div class="ins-search-container">
+                <div class="ins-input-wrapper">
+                    <input type="text" class="ins-search-input" placeholder=""
+                        x-webkit-speech />
+                    <button type="button" class="close ins-close ins-selectable" data-dismiss="modal"
+                        aria-label="Close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="ins-section-wrapper">
+                    <div class="ins-section-container"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+        <ul class="nav navbar-nav main-nav">
+            <li class="menu-item menu-item-home">
+                <a href="/">
+                    <i class="icon icon-home-fill"></i>
+                  <span class="menu-title">Home</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-archives">
+                <a href="/posts/">
+                    <i class="icon icon-archives-fill"></i>
+                  <span class="menu-title">Archives</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-categories">
+                <a href="/categories/">
+                    <i class="icon icon-folder"></i>
+                  <span class="menu-title">Categories</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-tags">
+                <a href="/tags/">
+                    <i class="icon icon-tags"></i>
+                  <span class="menu-title">Tags</span>
+                </a>
+            </li>
+            <li class="menu-item menu-item-about">
+                <a href="/about/">
+                    <i class="icon icon-cup-fill"></i>
+                  <span class="menu-title">About</span>
+                </a>
+            </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+<aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title"></h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content"><p>Stay hungry, stay foolish</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> </h3>
+    <div id="tag-cloud-list" class="widget-body">
+            
+            
+            <a href="https://johnhillross.com/tags/css/" class="tag-list-link" rel="1">css<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/emoji/" class="tag-list-link" rel="1">emoji<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/html/" class="tag-list-link" rel="1">html<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/index/" class="tag-list-link" rel="1">index<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/markdown/" class="tag-list-link" rel="2">markdown<span
+               class="tag-list-count">2</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/quick-start/" class="tag-list-link" rel="1">quick-start<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/text/" class="tag-list-link" rel="1">text<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/themes/" class="tag-list-link" rel="1">themes<span
+               class="tag-list-count">1</span></a>
+            
+            
+            <a href="https://johnhillross.com/tags/yolov5/" class="tag-list-link" rel="1">yolov5<span
+               class="tag-list-count">1</span></a>
+            
+    </div>
+<script>
+document.onreadystatechange = () => {
+  if (document.readyState === 'complete') {
+    tagCloud('#tag-cloud-list a',  8 ,  20 );
+  }
+};
+
+function tagCloud(where, min, max) {
+  let iMax = 0;
+  let iMin = 0;
+  $(where).each(function() {
+    let weight = Number($(this).attr("rel"));
+    if(iMax < weight) iMax = weight;
+    if(iMin > weight || iMin == 0) iMin = weight;
+  });
+  let step = (max - min)/(iMax - iMin);
+  $(where).each(function() {
+    let weight = $(this).attr("rel") - iMin;
+    $(this).css({"font-size": min + (weight * step) + 'px'});
+  });
+};
+</script>
+</div>
+
+      <div class="widget">
+    <h3 class="widget-title"> </h3>
+    <div class="widget-body">
+        <ul class="category-list">
+            <li class="category-list-item"><a href="https://johnhillross.com/categories/syntax/" class="category-list-link">syntax</a><span class="category-list-count">1</span></li>
+            <li class="category-list-item"><a href="https://johnhillross.com/categories/themes/" class="category-list-link">themes</a><span class="category-list-count">1</span></li>
+        </ul>
+    </div>
+</div>
+      <div class="widget">
+    <h3 class="widget-title"> </h3>
+    <div class="widget-body">
+        <ul class="tag-list">
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/css/" class="tag-list-link">css</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/emoji/" class="tag-list-link">emoji</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/html/" class="tag-list-link">html</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/index/" class="tag-list-link">index</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/markdown/" class="tag-list-link">markdown</a><span
+                    class="tag-list-count">2</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/quick-start/" class="tag-list-link">quick-start</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/text/" class="tag-list-link">text</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/themes/" class="tag-list-link">themes</a><span
+                    class="tag-list-count">1</span></li>
+            
+            
+            <li class="tag-list-item"><a href="https://johnhillross.com/tags/yolov5/" class="tag-list-link">yolov5</a><span
+                    class="tag-list-count">1</span></li>
+            
+        </ul>
+
+    </div>
+</div>
+      
+<div class="widget">
+    <h3 class="widget-title"></h3>
+    <div class="widget-body">
+        <ul class="recent-post-list list-unstyled no-thumbnail">
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://johnhillross.com/2022/06/yolov5-quick-start/" class="title">YOLOv5 Quick Start </a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2022-06-24 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-06-24</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://johnhillross.com/2019/03/markdown-syntax/" class="title">Markdown Syntax Guide</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-03-11 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-03-11</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://johnhillross.com/2019/03/placeholder-text/" class="title">Placeholder Text</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-03-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-03-09</time>
+                    </p>
+                </div>
+            </li>
+            <li>
+                <div class="item-inner">
+                    <p class="item-title">
+                        <a href="https://johnhillross.com/2019/03/emoji-support/" class="title">Emoji Support</a>
+                    </p>
+                    <p class="item-date">
+                        <time datetime="2019-03-05 00:00:00 &#43;0000 UTC" itemprop="datePublished">2019-03-05</time>
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+  </div>
+</aside>
+
+    
+    
+<aside class="sidebar sidebar-toc collapse" id="collapseToc" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    <h4 class="toc-title"></h4>
+    <nav id="toc" class="js-toc toc">
+
+    </nav>
+  </div>
+</aside>
+<main class="main" role="main"><div class="content">
+  <article id="-" class="article article-type-" itemscope
+    itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      <h1 itemprop="name">
+  <a
+    class="article-title"
+    href="/2022/06/yolov5-quick-start/"
+    >YOLOv5 Quick Start </a
+  >
+</h1>
+
+      <div class="article-meta">
+        
+<span class="article-date">
+  <i class="icon icon-calendar-check"></i>&nbsp;
+<a href="https://johnhillross.com/2022/06/yolov5-quick-start/" class="article-date">
+  <time datetime="2022-06-24 00:00:00 &#43;0000 UTC" itemprop="datePublished">2022-06-24</time>
+</a>
+</span>
+  
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>&nbsp;
+    <a class="article-tag-link" href="/tags/yolov5/"> YOLOv5 </a>
+    <a class="article-tag-link" href="/tags/quick-start/"> Quick Start </a>
+  </span>
+
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">4066</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">9 </span>
+      </div>
+    </div>
+    <div class="article-entry marked-body js-toc-content" itemprop="articleBody">
+      <h1 id="快速上手yolov5">快速上手YOLOv5</h1>
+<h2 id="一yolov5算法">一、YOLOv5算法</h2>
+<h3 id="1-算法对比">1. 算法对比</h3>
+<h4 id="1传统目标检测方法">（1）传统目标检测方法</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/222f97ea044fd86f16f77e4872830038.png" alt="222f97ea044fd86f16f77e4872830038.png"></p>
+<h4 id="2基于深度学习的目标检测算法">（2）基于深度学习的目标检测算法</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/fc8d7fd3c6c9e789ee11f07a6d6a8a35.png" alt="fc8d7fd3c6c9e789ee11f07a6d6a8a35.png"></p>
+<h4 id="2-1two-stager-cnnfast-r-cnnfaster-r-cnn">（2-1）Two-Stage（R-CNN/Fast R-CNN/Faster R-CNN）</h4>
+<p>Two-Stage：先产生候选区域，后对目标分类与位置精修，准确率高但速度较慢</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/33715defd01a420466b4562a6ea678bd.png" alt="33715defd01a420466b4562a6ea678bd.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/3d31a5e216bf478fa4199353171d4c19.png" alt="3d31a5e216bf478fa4199353171d4c19.png"></p>
+<h4 id="2-2one-stagessdyolo">（2-2）One-Stage（SSD/YOLO）</h4>
+<p>One-Stage：直接回归目标类别与位置，速度快但准确率较低</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/0f61dc700f38e4a94bbf2d850c99b7d6.png" alt="0f61dc700f38e4a94bbf2d850c99b7d6.png"></p>
+<h4 id="2-3one-stage-vs-two-stage">（2-3）One-Stage VS Two-Stage</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/14ede722c1f278c8e8097fe94c3439c4.png" alt="14ede722c1f278c8e8097fe94c3439c4.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/2b3889d24b75ac783e482833a0a96ea7.png" alt="2b3889d24b75ac783e482833a0a96ea7.png"></p>
+<p>YOLO v5s：模型小、推理时间短、准确率较高</p>
+<hr>
+<h2 id="二环境配置">二、环境配置</h2>
+<h3 id="1-nvidia独立显卡">1. NVIDIA独立显卡</h3>
+<p>打开设备管理器查看是否拥有NVIDIA独立显卡：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/fd10460a0f5ab97e3c31cdcfb443f40b.png" alt="fd10460a0f5ab97e3c31cdcfb443f40b.png"></p>
+<p>查看NVIDIA独立显卡是否支持CUDA：</p>
+<p><a href="https://developer.nvidia.com/cuda-gpus">https://developer.nvidia.com/cuda-gpus</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/0b20ee4f656d91c1ff8a2034633fb954.png" alt="0b20ee4f656d91c1ff8a2034633fb954.png"></p>
+<hr>
+<h3 id="2-环境要求">2. 环境要求</h3>
+<table>
+<thead>
+<tr>
+<th>环境</th>
+<th>版本</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Visual Studio</td>
+<td>Visual Studio 2019 版本 16.11 Community</td>
+<td><a href="https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=community&amp;rel=16&amp;utm_medium=microsoft&amp;utm_source=docs.microsoft.com&amp;utm_campaign=download+from+relnotes&amp;utm_content=vs2019ga+button">点击下载</a></td>
+</tr>
+<tr>
+<td>CMake</td>
+<td>cmake-3.24.0-rc2-windows-x86_64</td>
+<td><a href="https://github.com/Kitware/CMake/releases/download/v3.24.0-rc2/cmake-3.24.0-rc2-windows-x86_64.msi">点击下载</a></td>
+</tr>
+<tr>
+<td>OpenCV</td>
+<td>OpenCV – 3.4.16</td>
+<td><a href="https://sourceforge.net/projects/opencvlibrary/files/3.4.16/opencv-3.4.16-vc14_vc15.exe/download">点击下载</a></td>
+</tr>
+<tr>
+<td>Anaconda</td>
+<td>64-Bit Graphical Installer (594 MB)</td>
+<td><a href="https://repo.anaconda.com/archive/Anaconda3-2022.05-Windows-x86_64.exe">点击下载</a></td>
+</tr>
+<tr>
+<td>CUDA Toolkit</td>
+<td>CUDA Toolkit 11.3.1</td>
+<td><a href="https://developer.download.nvidia.com/compute/cuda/11.3.1/network_installers/cuda_11.3.1_win10_network.exe">点击下载</a></td>
+</tr>
+<tr>
+<td>cuDNN</td>
+<td>cuDNN v8.2.1 (June 7th, 2021), for CUDA 11.x</td>
+<td><a href="https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.2.1.32/11.3_06072021/cudnn-11.3-windows-x64-v8.2.1.32.zip">点击下载</a></td>
+</tr>
+<tr>
+<td>TensorRT</td>
+<td>TensorRT 8.2 GA Update 4 for x86_64 Architecture</td>
+<td><a href="https://developer.nvidia.com/compute/machine-learning/tensorrt/secure/8.2.5.1/zip/TensorRT-8.2.5.1.windows10.x86_64.cuda-11.4.cudnn8.2.zip">点击下载</a></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="3-安装visual-studio">3. 安装Visual Studio</h3>
+<p>安装Visual Studio 2019勾选C++桌面开发工具：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/0bd512dbed50f9ac688b315e66b19959.png" alt="0bd512dbed50f9ac688b315e66b19959.png"></p>
+<hr>
+<h3 id="4-安装anaconda">4. 安装Anaconda</h3>
+<p>添加系统环境变量：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/26210686eb91c06f450012c982afb2cc.png" alt="26210686eb91c06f450012c982afb2cc.png"></p>
+<p>测试：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/b2841926f10e36e8da424eca58c84aa5.png" alt="b2841926f10e36e8da424eca58c84aa5.png"></p>
+<p>换国内源：</p>
+<p>新建.condarc文件保存以下代码，并替换C:\Users\XXX下的.condarc文件</p>
+<pre><code>channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
+  - http://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  msys2: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  bioconda: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  menpo: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  pytorch-lts: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+  simpleitk: http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
+</code></pre>
+<hr>
+<h3 id="5-安装cuda-toolkit">5. 安装CUDA Toolkit</h3>
+<p>选择自定义</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/db1caf157cf5dc10c0b48e8a5874254e.png" alt="db1caf157cf5dc10c0b48e8a5874254e.png"></p>
+<p>全部安装</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/683a9a77682a926a9a546db33ea49a96.png" alt="683a9a77682a926a9a546db33ea49a96.png"></p>
+<p>添加系统环境变量：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/ba5e44e4fa68e04632e25876427d0453.png" alt="ba5e44e4fa68e04632e25876427d0453.png"></p>
+<p>上述两项是安装完成Cuda后，已自动生成的环境变量的配置，我们需要自行添加的下述变量：</p>
+<p>CUDA_BIN_PATH: %CUDA_PATH%\bin</p>
+<p>CUDA_LIB_PATH: %CUDA_PATH%\lib\x64</p>
+<p>CUDA_SDK_PATH: XXX\NVIDIA Corporation\CUDA Samples\v11.1</p>
+<p>CUDA_SDK_BIN_PATH: %CUDA_SDK_PATH%\bin\win64</p>
+<p>CUDA_SDK_LIB_PATH: %CUDA_SDK_PATH%\common\lib\x64</p>
+<p>并在系统变量Path中，添加一下四个信息：</p>
+<p>%CUDA_BIN_PATH%</p>
+<p>%CUDA_LIB_PATH%</p>
+<p>%CUDA_SDK_BIN_PATH%</p>
+<p>%CUDA_SDK_LIB_PATH%</p>
+<p>测试：</p>
+<pre><code>nvcc -V
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/9a5ca937f68016be4f7975afd6fea9df.png" alt="9a5ca937f68016be4f7975afd6fea9df.png"></p>
+<hr>
+<h3 id="6-安装cudnn">6. 安装cuDNN</h3>
+<p>复制XXX\cudnn-11.3-windows-x64-v8.2.1.32\cuda全部内容到XXX\NVIDIA GPU Computing Toolkit\CUDA\v11.3</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/8218c1f9000de105a538cb54363ceb0e.png" alt="8218c1f9000de105a538cb54363ceb0e.png"></p>
+<hr>
+<h3 id="7-安装tensorrt">7. 安装TensorRT</h3>
+<p>添加环境变量：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/19b68bec5885fe3ac4efb25278df9223.png" alt="19b68bec5885fe3ac4efb25278df9223.png"></p>
+<p>复制XXX\TensorRT-8.2.5.1\lib以下所有dll文件到XXX\NVIDIA GPU Computing Toolkit\CUDA\v11.3\bin下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/f523de9f064584302815e7198a9ce8d2.png" alt="f523de9f064584302815e7198a9ce8d2.png"></p>
+<p>安装XXXTensorRT\TensorRT-8.2.5.1\python目录下tensorrt-8.2.5.1-cp39-none-win_amd64.whl：</p>
+<pre><code class="language-python">activate pytorch
+pip install tensorrt-8.2.5.1-cp39-none-win_amd64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre>
+<hr>
+<h3 id="8-安装opencv">8. 安装OpenCV</h3>
+<p>添加环境变量：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/8e3661147f49959968015e0ee8b1b26e.png" alt="8e3661147f49959968015e0ee8b1b26e.png"></p>
+<hr>
+<h3 id="9-安装cmake">9. 安装CMake</h3>
+<p>添加环境变量：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/b84f6d0fe12da51828dfa061f42f9192.png" alt="b84f6d0fe12da51828dfa061f42f9192.png"></p>
+<hr>
+<h3 id="10-安装pytorch">10. 安装Pytorch</h3>
+<p><a href="https://pytorch.org/get-started/locally/">https://pytorch.org/get-started/locally/</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/d1541c7781952d0fd6c4dfc276bab26f.png" alt="d1541c7781952d0fd6c4dfc276bab26f.png"></p>
+<p>以管理员模式在命令行中运行：</p>
+<pre><code>conda create -n pytorch python=3.9
+activate pytorch
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/f780c3583ae5f52457d2eebb0a8d0c25.png" alt="f780c3583ae5f52457d2eebb0a8d0c25.png"></p>
+<p>测试：</p>
+<pre><code class="language-python"># cuda test
+import torch
+print(torch.__version__)
+x = torch.Tensor([1.0])
+xx = x.cuda()
+print(xx)
+print(torch.cuda.is_available())
+
+# cudnn test
+from torch.backends import cudnn
+print(cudnn.is_acceptable(xx))
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/f5b590509309917eb5faf88bfca7ac6c.png" alt="f5b590509309917eb5faf88bfca7ac6c.png"></p>
+<hr>
+<h3 id="11-安装yolov5必要依赖包">11. 安装YOLOv5必要依赖包</h3>
+<p>下载YOLOv5源代码：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/d26f994d5413908a4a9da14ab92e8854.png" alt="d26f994d5413908a4a9da14ab92e8854.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/b61966c3896e3a1a7f1b99146f060e22.png" alt="b61966c3896e3a1a7f1b99146f060e22.png"></p>
+<p>进入XXX\yolov5-master目录执行：</p>
+<pre><code>activate pytorch
+pip install -r requirements.txt
+</code></pre>
+<p>测试：</p>
+<pre><code class="language-python">activate pytorch
+python detect.py
+</code></pre>
+<p>运行结果保存在XXX\yolov5-master\runs\detect\exp下</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/ffc23399503ae50cfcc2c5a4bde8102f.png" alt="ffc23399503ae50cfcc2c5a4bde8102f.png"></p>
+<hr>
+<h3 id="12-yolov5使用tensorrt加速">12. YOLOv5使用TensorRT加速</h3>
+<p>下载YOLOv5 TensorRT加速版本：</p>
+<p><a href="https://github.com/wang-xinyu/tensorrtx">https://github.com/wang-xinyu/tensorrtx</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/f6974e7710035c848ca3f5dadb13bde9.png" alt="f6974e7710035c848ca3f5dadb13bde9.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/66670fdf48969c13ff43a7416d2a6ba9.png" alt="66670fdf48969c13ff43a7416d2a6ba9.png"></p>
+<p>在XXX\tensorrtx下创建include文件夹，下载文件dirent.h放置在include文件夹中，
+下载地址 <a href="https://github.com/tronkko/dirent/tree/master/include/dirent.h">https://github.com/tronkko/dirent/tree/master/include/dirent.h</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/8c0f39024392faa0d880f5224d14e5f0.png" alt="8c0f39024392faa0d880f5224d14e5f0.png"></p>
+<p>修改XXX\tensorrtx\yolov5目录下CMakeLists.txt内容为（按自己的安装目录修改#1 #2 #3 #4）：</p>
+<pre><code>cmake_minimum_required(VERSION 2.6)
+
+project(yolov5)  
+set(OpenCV_DIR &quot;D:/Environment/OpenCV/opencv/build&quot;)    ##1
+set(OpenCV_INCLUDE_DIRS &quot;D:/Environment/OpenCV/opencv/build/include&quot;)    ##2
+set(OpenCV_LIBS &quot;D:\\Environment\\OpenCV\\opencv\\build\\x64\\vc14\\lib\\opencv_world3416.lib&quot;)    ##3
+set(TRT_DIR &quot;D:/Environment/TensorRT/TensorRT-8.2.5.1&quot;)    ##4
+
+add_definitions(-DAPI_EXPORTS)
+add_definitions(-std=c++11)
+option(CUDA_USE_STATIC_CUDA_RUNTIME OFF)
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_BUILD_TYPE Debug)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads)
+
+
+# setup CUDA
+find_package(CUDA REQUIRED)
+message(STATUS &quot;libraries: ${CUDA_LIBRARIES}&quot;)
+message(STATUS &quot;include path: ${CUDA_INCLUDE_DIRS}&quot;)
+
+include_directories(${CUDA_INCLUDE_DIRS})
+
+####
+enable_language(CUDA)  # add this line, then no need to setup cuda path in vs
+####
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${TRT_DIR}\\include)
+include_directories(D:\\Environment\\TensorRT\\tensorrtx\\include)    ##5
+
+
+#find_package(OpenCV)
+include_directories(${OpenCV_INCLUDE_DIRS})
+include_directories(${OpenCV_INCLUDE_DIRS}\\opencv2) #6
+
+# -D_MWAITXINTRIN_H_INCLUDED for solving error: identifier &quot;__builtin_ia32_mwaitx&quot; is undefined
+set(CMAKE_CXX_FLAGS &quot;${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Ofast -D_MWAITXINTRIN_H_INCLUDED&quot;)
+
+# setup opencv
+find_package(OpenCV QUIET
+    NO_MODULE
+    NO_DEFAULT_PATH
+    NO_CMAKE_PATH
+    NO_CMAKE_ENVIRONMENT_PATH
+    NO_SYSTEM_ENVIRONMENT_PATH
+    NO_CMAKE_PACKAGE_REGISTRY
+    NO_CMAKE_BUILDS_PATH
+    NO_CMAKE_SYSTEM_PATH
+    NO_CMAKE_SYSTEM_PACKAGE_REGISTRY
+)
+
+
+message(STATUS &quot;OpenCV library status:&quot;)
+message(STATUS &quot;version: ${OpenCV_VERSION}&quot;)
+message(STATUS &quot;libraries: ${OpenCV_LIBS}&quot;)
+message(STATUS &quot;include path: ${OpenCV_INCLUDE_DIRS}&quot;)
+
+include_directories(${OpenCV_INCLUDE_DIRS})
+link_directories(${TRT_DIR}\\lib)
+link_directories(${OpenCV_DIR}\\x64\\vc14\\lib) #8
+
+add_executable(yolov5 ${PROJECT_SOURCE_DIR}/calibrator.cpp yolov5 ${PROJECT_SOURCE_DIR}/yolov5.cpp ${PROJECT_SOURCE_DIR}/yololayer.cu ${PROJECT_SOURCE_DIR}/yololayer.h ${PROJECT_SOURCE_DIR}/preprocess.cu ${PROJECT_SOURCE_DIR}/preprocess.h)
+target_link_libraries(yolov5 &quot;nvinfer&quot; &quot;nvinfer_plugin&quot;) #9
+target_link_libraries(yolov5 ${OpenCV_LIBS})        #10
+target_link_libraries(yolov5 ${CUDA_LIBRARIES}) #11
+target_link_libraries(yolov5 Threads::Threads) #12
+</code></pre>
+<p>在XXX\tensorrtx\yolov5目录下新建build文件夹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/495448c1b26da7d9bbc7ea29f520c5e7.png" alt="495448c1b26da7d9bbc7ea29f520c5e7.png"></p>
+<p>运行XXX\CMake\bin\cmake-gui.exe配置：</p>
+<p>Where is the source code: <code>XXX\tensorrtx\yolov5</code></p>
+<p>Where to build the binaries: <code>XXX\tensorrtx\yolov5\build</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/401106a6b793c2843668720b263aca92.png" alt="401106a6b793c2843668720b263aca92.png"></p>
+<p>依次执行Configure -&gt; Generate -&gt; Open Project</p>
+<p>下载YOLOv5 TensorRT Win10加速版本：</p>
+<p><a href="https://github.com/Monday-Leo/Yolov5_Tensorrt_Win10">https://github.com/Monday-Leo/Yolov5_Tensorrt_Win10</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/002ac33609ca3ed92bbd74548f1d795d.png" alt="002ac33609ca3ed92bbd74548f1d795d.png"></p>
+<p>复制XXX\Yolov5_Tensorrt_Win10-master\yolov5.cpp文件内容，替换XXX\tensorrtx\yolov5\yolov5.cpp内容</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/a609fdcb5f48f91987926abaf0c884dc.png" alt="a609fdcb5f48f91987926abaf0c884dc.png"></p>
+<p>修改yololayer.h文件20行中的类别数</p>
+<pre><code>static constexpr int CLASS_NUM = 4;		# 修改类别数
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/9036edae98963c549472644b7135192e.png" alt="9036edae98963c549472644b7135192e.png"></p>
+<p>选择重新生成yolov5项目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/5ee4470731059aba362c5bf2158772f1.png" alt="5ee4470731059aba362c5bf2158772f1.png"></p>
+<p>复制XXX\tensorrtx\yolov5\gen_wts.py到XXX\yolov5-master目录，执行以下代码：</p>
+<pre><code class="language-python">activate pytorch
+python gen_wts.py -w yolov5s.pt -o yolov5s.wts
+</code></pre>
+<p>复制XXX\yolov5-master\yolov5s.wts到XXX\tensorrtx\yolov5\build\Release下，执行以下代码：</p>
+<pre><code>yolov5.exe -s yolov5s.wts yolov5s.engine s
+</code></pre>
+<p>执行XXX\tensorrtx\yolov5\build下yolov5.sln</p>
+<p>右键选择yolov5项目属性</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/5adb2e12114d8c0d9628ccbe9bb8f735.png" alt="5adb2e12114d8c0d9628ccbe9bb8f735.png"></p>
+<p>修改配置属性-&gt;常规-&gt;配置类型为动态库(.dll)</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/132208407bef2e16f2f878670bdcb009.png" alt="132208407bef2e16f2f878670bdcb009.png"></p>
+<p>修改配置属性-&gt;高级-&gt;目标文件扩展名为.dll</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/97e8efa055d24f0badda4a6cefb48a3e.png" alt="97e8efa055d24f0badda4a6cefb48a3e.png"></p>
+<p>选择重新生成yolov5项目</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/5ee4470731059aba362c5bf2158772f1.png" alt="5ee4470731059aba362c5bf2158772f1.png"></p>
+<p>复制XXX\tensorrtx\yolov5\build\Release下yolov5.dll和yolov5s.wts到XXX\Yolov5_Tensorrt_Win10-master</p>
+<p>复制XXX\yolov5-master\data\images到XXX\Yolov5_Tensorrt_Win10-master</p>
+<p>修改python_trt.py：</p>
+<pre><code class="language-python">img = cv2.imread(&quot;./images/bus.jpg&quot;)
+</code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/ef1a377e328c3bed7ecb19d9fe738d48.png" alt="ef1a377e328c3bed7ecb19d9fe738d48.png"></p>
+<p>测试：</p>
+<pre><code class="language-python">activate pytorch
+python python_trt.py
+</code></pre>
+<hr>
+<h2 id="三获取数据集">三、获取数据集</h2>
+<h3 id="1-公共数据集kagglemakeml等">1. 公共数据集Kaggle、MakeML等：</h3>
+<p><a href="https://www.kaggle.com/datasets">https://www.kaggle.com/datasets</a></p>
+<p><a href="https://makeml.app/dataset-store">https://makeml.app/dataset-store</a></p>
+<h3 id="2-百度图片爬虫">2. 百度图片爬虫：</h3>
+<pre><code class="language-python">import json
+import itertools
+import urllib
+import requests
+import os
+import re
+import sys
+
+word = input(&quot;请输入关键字：&quot;)
+pageNum = input(&quot;爬取页面数（每个页面含有30张图片）：&quot;)
+
+path = &quot;D:/Data/CrawlImg&quot;
+if not os.path.exists(path):
+  os.mkdir(path)
+
+urls = []
+word = urllib.parse.quote(word)
+
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'
+}
+
+url = r&quot;https://image.baidu.com/search/acjson?tn=resultjson_com&amp;ipn=rj&amp;ct=201326592&amp;is=0%2C0&amp;fp=detail&amp;logid=7181752122064024928&amp;cl=2&amp;lm=-1&amp;ie=utf-8&amp;oe=utf-8&amp;adpicid=0&amp;lpn=0&amp;st=-1&amp;word={word}&amp;ic=0&amp;hd=undefined&amp;latest=undefined&amp;copyright=undefined&amp;s=undefined&amp;se=&amp;tab=0&amp;width=&amp;height=&amp;face=undefined&amp;istype=2&amp;qc=&amp;nc=&amp;fr=&amp;simics=&amp;srctype=&amp;bdtype=0&amp;rpstart=0&amp;rpnum=0&amp;cs=604827192%2C704143832&amp;catename=&amp;force=undefined&amp;album_id=&amp;album_tab=&amp;cardserver=&amp;tabname=&amp;pn={pn}&amp;rn=30&amp;gsm=1&amp;1619190981089=&quot;
+
+for i in range(int(pageNum)):
+    urls.append(url.format(word=word,pn=i*30))
+
+str_table = {
+  '_z2C$q': ':',
+  'AzdH3F': '/',
+  '_z&amp;e3B': '.'
+}
+
+char_table = {
+  'w': 'a',
+  'k': 'b',
+  'v': 'c',
+  '1': 'd',
+  'j': 'e',
+  'u': 'f',
+  '2': 'g',
+  'i': 'h',
+  't': 'i',
+  '3': 'j',
+  'h': 'k',
+  's': 'l',
+  '4': 'm',
+  'g': 'n',
+  '5': 'o',
+  'r': 'p',
+  'q': 'q',
+  '6': 'r',
+  'f': 's',
+  'p': 't',
+  '7': 'u',
+  'e': 'v',
+  'o': 'w',
+  '8': '1',
+  'd': '2',
+  'n': '3',
+  '9': '4',
+  'c': '5',
+  'm': '6',
+  '0': '7',
+  'b': '8',
+  'l': '9',
+  'a': '0'
+}
+
+i=1
+char_table = {ord(key): ord(value) for key, value in char_table.items()}
+for url in urls:
+  html=requests.get(url,headers=headers).text
+  a=re.compile(r'&quot;objURL&quot;:&quot;(.*?)&quot;')
+  downURL=re.findall(a,html)
+  for t in downURL:
+    for key, value in str_table.items():
+        t = t.replace(key, value)
+    t=t.translate(char_table)
+    print(t)
+    try:
+      html_1=requests.get(t)
+      if str(html_1.status_code)[0]==&quot;4&quot;:
+        print('请求失败')
+        continue
+    except Exception as e:
+      print('图片链接不存在')
+      continue
+    with open(path+&quot;/&quot;+str(i)+&quot;.jpg&quot;,'wb') as f:
+      f.write(html_1.content)
+    i=i+1
+
+
+</code></pre>
+<h3 id="3-ffmpeg视频帧截取">3. FFmpeg视频帧截取：</h3>
+<pre><code>ffmpeg -i [video] -r [interval] -q:v [quality] -f image2 [name]%03d.jpeg
+</code></pre>
+<p>-r 表示每一秒几帧</p>
+<p>-q:v表示存储jpeg的图像质量，一般2是高质量</p>
+<pre><code>ffmpeg -i input.mp4 -r 1 -q:v 2 -f image2 pic-%03d.jpeg
+</code></pre>
+<p>如此，ffmpeg会把input.mp4，每隔一秒，存一张图片下来。假设有60s，那会有60张</p>
+<hr>
+<h2 id="四图像标注">四、图像标注</h2>
+<h3 id="1-labelme图片标注工具">1. Labelme图片标注工具：</h3>
+<p>下载地址https://github.com/wkentaro/labelme/releases/download/v5.0.1/Labelme.exe</p>
+<p>Open Dir设置为图片所在文件夹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/e6fe1a4b03a46004e8a2d0ebb34630a3.png" alt="e6fe1a4b03a46004e8a2d0ebb34630a3.png"></p>
+<p>Edit -&gt; Change Output Dir设置lJSON格式标签保存位置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/bd3628720f267326d1c27d48d977cf6d.png" alt="bd3628720f267326d1c27d48d977cf6d.png"></p>
+<p>创建数据集目录树</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/8398926d77c8df371bc8c9eb821029a1.png" alt="8398926d77c8df371bc8c9eb821029a1.png"></p>
+<p>Annotation文件夹保存labelme标注格式标签</p>
+<p>images文件夹存放图片</p>
+<p>labels文件夹保存YOLO格式标签</p>
+<p>classes.txt存储类别名，必须按顺序一行一个类别名</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/899799535d64e8deabc3ece1a0efe5fb.png" alt="899799535d64e8deabc3ece1a0efe5fb.png"></p>
+<p>labelme标注格式为JSON需转换为YOLO格式，并划分train、val、test数据集</p>
+<p>labelme to yolo</p>
+<pre><code class="language-python"># coding:utf-8
+
+import os
+import shutil
+import json
+import argparse
+from sklearn.model_selection import train_test_split
+
+'''
+1. One row per object
+2. Each row is class x_center y_center width height format.
+3. Box coordinates must be in normalized xywh format (from 0 - 1). 
+If your boxes are in pixels, divide x_center and width by image width, and y_center and height by image height.
+4. Class numbers are zero-indexed (start from 0).
+'''
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--img_dir', default='./datasets/CSGO2/images',type=str, help=&quot;path of images&quot;)
+parser.add_argument('--json_dir', default='./datasets/CSGO2/Annotations', type=str, help=&quot;path of json&quot;)
+parser.add_argument('--classes_path', default='./datasets/CSGO2/classes.txt', type=str, help=&quot;path of classes.txt&quot;)
+parser.add_argument('--txt_dir', default='./datasets/CSGO2/labels', type=str, help=&quot;save path of txt&quot;)
+parser.add_argument('--split_ratio', default=[0.8, 0.1, 0.1], type=str, help=&quot;random split the dataset [train, val, test], default ratio is 8:1:1&quot;)
+arg = parser.parse_args()
+
+sets = ['train', 'val', 'test']
+
+def train_test_val_split_random(img_dir, json_dir, classes_path, txt_dir, split_ratio):
+
+    ratio_train = split_ratio[0]
+    ratio_val = split_ratio[1]
+    ratio_test = split_ratio[2]
+    assert int(ratio_train+ratio_test+ratio_val) == 1
+
+    imgset_path_list = {}
+
+    imgset_path_list[0], middle_img_path = train_test_split(os.listdir(img_dir),test_size=1-ratio_train, random_state=233)
+    ratio=ratio_val/(1-ratio_train)
+    imgset_path_list[1], imgset_path_list[2] = train_test_split(middle_img_path,test_size=ratio, random_state=233)
+    print(&quot;NUMS of train:val:test = {}:{}:{}&quot;.format(len(imgset_path_list[0]), len(imgset_path_list[1]), len(imgset_path_list[2])))
+    
+    for index, set in enumerate(sets, 0):
+        split_imgset_dir = os.path.join(img_dir, set)
+        if not os.path.exists(split_imgset_dir):
+            os.makedirs(split_imgset_dir)
+        for imgset_path in imgset_path_list[index]:
+            shutil.copy(os.path.join(img_dir, imgset_path), split_imgset_dir)
+
+        split_txt_dir = os.path.join(txt_dir, set)
+        if not os.path.exists(split_txt_dir):
+            os.makedirs(split_txt_dir)
+
+        labelme_to_yolo(split_imgset_dir, json_dir, classes_path, split_txt_dir)
+
+def labelme_to_yolo(split_imgset_dir, json_dir, classes_path, split_txt_dir):
+
+    with open(classes_path) as f:
+        classes = f.read().strip().split()
+
+    img_path_list = os.listdir(split_imgset_dir)
+    for img_path in img_path_list:
+        if img_path.startswith('.'):
+            continue
+        name, suffix = os.path.splitext(img_path)
+        save_path = os.path.join(split_txt_dir, name + '.txt')
+        json_path = os.path.join(json_dir, name + '.json')
+        print('processing -&gt; %s' % json_path)
+        label_dict = json.load(open(json_path, 'r'))
+        height = label_dict['imageHeight']
+        width = label_dict['imageWidth']
+        loc_info_list = label_dict['shapes']
+        label_info_list = list()
+        for loc_info in loc_info_list:
+            obj_name = loc_info.get('label')
+            label_id = classes.index(obj_name)
+            loc = loc_info.get('points')
+            x0, y0 = loc[0]  # 左上角点
+            x1, y1 = loc[1]  # 右下角点
+            x_center = (x0 + x1) / 2 / width
+            y_center = (y0 + y1) / 2 / height
+            box_w = (abs(x1 - x0)) / width  # 这里使用绝对值是因为有时候先标注的右下角点
+            box_h = (abs(y1 - y0)) / height
+            assert box_w &gt; 0, print((int(x0), int(y0)), (int(x1), int(y1)))
+            assert box_h &gt; 0
+            label_info_list.append([str(label_id), str(x_center), str(y_center), str(box_w), str(box_h)])
+
+        with open(save_path, 'a') as f:
+            for label_info in label_info_list:
+                label_str = ' '.join(label_info)
+                f.write(label_str)
+                f.write('\n')
+
+if __name__ == '__main__':
+    train_test_val_split_random(arg.img_dir, arg.json_dir, arg.classes_path, arg.txt_dir, arg.split_ratio)
+</code></pre>
+<p>复制images和labels文件夹到XXX\yolov5-master\datasets\XXX目录</p>
+<p>设置训练数据配置文件xxx.yaml即可用YOLOv5对数据集进行训练</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/c6616eed4168df18fb00d34b9c803ba4.png" alt="c6616eed4168df18fb00d34b9c803ba4.png"></p>
+<p>path设置为数据集文件夹</p>
+<p>nc设置为类别数</p>
+<p>names设置为类别名，必须按顺序</p>
+<p>修改XXX\yolov5-master\train.py</p>
+<pre><code class="language-python">parser.add_argument('--weights', type=str, default=ROOT / 'yolov5s.pt', help='initial weights path')	# 训练已有模型绝对路径，为空时即重新训练新的模型
+parser.add_argument('--data', type=str, default=ROOT / 'datasets/CSGO/csgo.yaml', help='dataset.yaml path')	# 训练数据配置文件xxx.yaml绝对路径
+parser.add_argument('--batch-size', type=int, default=16, help='total batch size for all GPUs, -1 for autobatch')	# 批大小，提示显存不够设置数值减少一半
+parser.add_argument('--workers', type=int, default=0, help='max dataloader workers (per RANK in DDP mode)')	# Windows系统下设置为0
+</code></pre>
+<p>开始训练：</p>
+<pre><code class="language-python">activate pytorch
+python train.py
+</code></pre>
+<h4 id="半自动辅助标注">半自动辅助标注：</h4>
+<p>利用XXX\yolov5-master\detect.py半自动辅助标注，设置detect.py中222行为：</p>
+<pre><code class="language-python">parser.add_argument('--save-txt', default=True, action='store_true', help='save results to *.txt')
+</code></pre>
+<p>运行detect.py：</p>
+<pre><code class="language-python">activate pytorch
+python detect.py
+</code></pre>
+<p>标签结果保存在XXX\yolov5-master\runs\detect\expX\labels中，复制labels到数据集目录下的lables中，执行以下代码即可在Annotation文件夹下生成labelme的标注格式JSON文件</p>
+<p>yolo to labelme</p>
+<pre><code class="language-python"># coding:utf-8
+
+import os
+import cv2
+import json
+import argparse
+import base64
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--img_dir', default='./datasets/CSGO2/images',type=str, help=&quot;path of images&quot;)
+parser.add_argument('--txt_dir', default='./datasets/CSGO2/labels', type=str, help=&quot;path of txt&quot;)
+parser.add_argument('--classes_path', default='./datasets/CSGO2/classes.txt', type=str, help=&quot;path of classes.txt&quot;)
+parser.add_argument('--json_dir', default='./datasets/CSGO2/Annotations', type=str, help=&quot;save path of json&quot;)
+arg = parser.parse_args()
+
+
+def parse_tta_label(img_path, txt_path, classes_path, json_dir):
+    
+    file_name = img_path.split('\\')[-1].split('.')[0]
+    imagePath = img_path.split('/')[-1]
+    img = cv2.imread(img_path)
+    h, w = img.shape[:2]
+
+    with open(img_path, 'rb') as f:
+        image = f.read()
+    image_base64 = str(base64.b64encode(image), encoding='utf-8')
+
+    version = '5.0.1'
+    data_dict = dict()
+    data_dict.__setitem__('version', version)
+    data_dict.__setitem__('imagePath', imagePath)
+    data_dict.__setitem__(&quot;imageData&quot;, image_base64)
+    data_dict.__setitem__('imageHeight', h)
+    data_dict.__setitem__('imageWidth', w)
+    data_dict.__setitem__('flags', {})
+    data_dict['shapes'] = list()
+
+    with open(txt_path, 'r') as f:
+        label_info_list = f.readlines()
+
+    for label_info in label_info_list:
+        label_info = label_info.strip()
+        label_info = label_info.split(' ')
+        class_name = label_info[0]
+        c_x = float(label_info[1]) * w
+        c_y = float(label_info[2]) * h
+        b_w = float(label_info[3]) * w
+        b_h = float(label_info[4]) * h
+        x1 = c_x - b_w / 2
+        x2 = c_x + b_w / 2
+        y1 = c_y - b_h / 2
+        y2 = c_y + b_h / 2
+
+        points = [[x1, y1], [x2, y2]]
+        shape_type = 'rectangle'
+        shape = {}
+
+        with open(classes_path) as f:
+            classes = f.read().strip().split()
+
+        shape.__setitem__('label', classes[int(class_name)])
+        shape.__setitem__('points', points)
+        shape.__setitem__('shape_type', shape_type)
+        shape.__setitem__('flags', {})
+        shape.__setitem__('group_id', None)
+        data_dict['shapes'].append(shape)
+
+    save_json_path = os.path.join(json_dir, '%s.json' % file_name)
+    json.dump(data_dict, open(save_json_path, 'w'), indent=4)
+
+def generate_labelme_prelabel(img_dir, txt_dir, classes_path, json_dir):
+    img_name_list = os.listdir(img_dir)
+    for img_name in img_name_list:
+        if img_name.startswith('.'):
+            continue
+        txt_name = img_name.replace('images','txt').replace('.jpg','.txt').replace('.jpeg','.txt').replace('.png','.txt')
+        print('processing -&gt; %s' % txt_name)
+        img_path = os.path.join(img_dir, img_name)
+        txt_path = os.path.join(txt_dir, txt_name)
+        parse_tta_label(img_path, txt_path, classes_path, json_dir)
+
+
+if __name__ == '__main__':
+    generate_labelme_prelabel(arg.img_dir, arg.txt_dir, arg.classes_path, arg.json_dir)
+</code></pre>
+<p>Open Dir设置为图片所在文件夹</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/e6fe1a4b03a46004e8a2d0ebb34630a3.png" alt="e6fe1a4b03a46004e8a2d0ebb34630a3.png"></p>
+<p>Edit -&gt; Change Output Dir设置lJSON格式标签保存位置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5_Quick_Start/bd3628720f267326d1c27d48d977cf6d.png" alt="bd3628720f267326d1c27d48d977cf6d.png"></p>
+<p>利用labelme进行人工修整后，按labelme to yolo方法转换标签格式再给YOLOv5训练</p>
+<hr>
+<h3 id="2-ai标注">2. AI标注：</h3>
+<p>飞桨BML：</p>
+<p><a href="https://blog.csdn.net/weixin_42217041/article/details/119250959">https://blog.csdn.net/weixin_42217041/article/details/119250959</a></p>
+<hr>
+<h2 id="五训练平台">五、训练平台</h2>
+<h3 id="1-免费算力平台">1. 免费算力平台：</h3>
+<p>Google Colab：</p>
+<p>利用Google Colab训练YOLOv5</p>
+<p>教程：</p>
+<p><a href="https://blog.csdn.net/djstavav/article/details/112261905">https://blog.csdn.net/djstavav/article/details/112261905</a></p>
+<p>MultCloud：</p>
+<p>利用MultCloud把OneDrive数据集传出到Google Colab</p>
+<p>教程：</p>
+<p><a href="https://blog.csdn.net/AWhiteDongDong/article/details/107928536">https://blog.csdn.net/AWhiteDongDong/article/details/107928536</a></p>
+<hr>
+
+    </div>
+    <div class="article-footer">
+<blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    <li class="post-copyright-link hidden-xs">
+      <strong>: </strong>
+      <a href="https://johnhillross.com/2022/06/yolov5-quick-start/" title="YOLOv5 Quick Start " target="_blank" rel="external">https://johnhillross.com/2022/06/yolov5-quick-start/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>: </strong>
+        <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN</a>
+    </li>
+  </ul>
+</blockquote>
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="https://github.com/johnhillross" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="https://johnhillross.com/avatar.gif" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="https://github.com/johnhillross" target="_blank"><span class="text-dark">Ross</span><small class="ml-1x">Coding Rookie</small></a></h3>
+        <div>Stay hungry, stay foolish</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+    </div>
+  </article>
+</div><nav class="bar bar-footer clearfix" data-stick-bottom>
+    <div class="bar-inner">
+        <ul class="pager pull-left">
+            <li class="prev">
+                <a href="https://johnhillross.com/2019/03/markdown-syntax/" title="Markdown Syntax Guide"><i
+                        class="icon icon-angle-left"
+                        aria-hidden="true"></i><span>&nbsp;&nbsp;</span></a>
+            </li>
+            
+            <li class="toggle-toc">
+                <a class="toggle-btn collapsed" data-toggle="collapse" href="#collapseToc" aria-expanded="false"
+                    title="" role="button">
+                    <span>[&nbsp;</span><span></span>
+                    <i class="text-collapsed icon icon-anchor"></i>
+                    <i class="text-in icon icon-close"></i>
+                    <span>]</span>
+                </a>
+            </li>
+        </ul>
+        <div class="bar-right">
+            <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter"
+                data-mobile-sites="weibo,qq,qzone"></div>
+        </div>
+    </div>
+</nav>
+
+
+</main><footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+<ul class="social-links">
+    <li><a href="https://github.com/johnhillross" target="_blank" title="github" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-github"></i></a></li>
+    <li><a href="https://johnhillross.com/index.xml" target="_blank" title="rss" data-toggle=tooltip data-placement=top >
+            <i class="icon icon-rss"></i></a></li>
+</ul>
+  <div class="copyright">
+    &copy;2017  -
+    2022
+    <div class="publishby">
+         <a href="https://github.com/xiaoheiAh" target="_blank"> xiaoheiAh </a><a href="https://github.com/xiaoheiAh/hugo-theme-pure" target="_blank"> pure</a>.
+    </div>
+    
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            showMathMenu: false, //disables context menu
+            tex2jax: {
+            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
+           }
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<script>
+    window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/highlight.min.js"></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/python.min.js" defer></script>
+<script type="text/javascript" src="https://cdn.staticfile.org/highlight.js/9.15.10/languages/javascript.min.js" defer></script><script>
+    hljs.configure({
+        tabReplace: '    ', 
+        classPrefix: ''     
+        
+    })
+    hljs.initHighlightingOnLoad();
+</script>
+<script src="https://johnhillross.com/js/application.min.c181e6b0c036798c7731cfb85b41b44c80689fd48fee546b73d449386ce6ccfb.js"></script>
+<script src="https://johnhillross.com/js/plugin.min.46930345227de54c034f39c80841463c3b879632feb482e9f2734d4b616ae3be.js"></script>
+
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '',
+                PAGES: '',
+                CATEGORIES: '',
+                TAGS: '',
+                UNTITLED: '',
+            },
+            ROOT_URL: 'https:\/\/johnhillross.com\/',
+            CONTENT_URL: 'https:\/\/johnhillross.com\/\/searchindex.json ',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script type="text/javascript" src="https://johnhillross.com/js/insight.min.07c7d73e2ec5e960e55f8b98577ada0bd78b36e7ef9d6dd65b85d4b1d443e7c1a1ca7cd1d98e7105db5fd72583cbc6fbb5e386062d3bf3c2568588fbb38c0c06.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+<script>
+    tocbot.init({
+        
+        tocSelector: '.js-toc',
+        
+        contentSelector: '.js-toc-content',
+        
+        headingSelector: 'h1, h2, h3',
+        
+        hasInnerContainers: true,
+    });
+</script>
+
+
+  </body>
+</html>
