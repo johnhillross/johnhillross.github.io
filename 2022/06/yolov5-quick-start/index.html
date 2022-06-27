@@ -39,7 +39,7 @@
 <meta itemprop="name" content="YOLOv5 Quick Start ">
 <meta itemprop="description" content="Get a quick start on YOLOv5 on Win11 and speed up detection using TensorRT"><meta itemprop="datePublished" content="2022-06-24T00:00:00+00:00" />
 <meta itemprop="dateModified" content="2022-06-24T00:00:00+00:00" />
-<meta itemprop="wordCount" content="4100">
+<meta itemprop="wordCount" content="4106">
 <meta itemprop="keywords" content="YOLOv5,Quick Start," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="YOLOv5 Quick Start "/>
 <meta name="twitter:description" content="Get a quick start on YOLOv5 on Win11 and speed up detection using TensorRT"/>
@@ -357,7 +357,7 @@ function tagCloud(where, min, max) {
     <a class="article-tag-link" href="/tags/quick-start/"> Quick Start </a>
   </span>
 
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">4100</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">4106</span>
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">9 </span>
       </div>
     </div>
@@ -498,7 +498,7 @@ custom_channels:
 <p>复制XXX\TensorRT-8.2.5.1\lib以下所有dll文件到XXX\NVIDIA GPU Computing Toolkit\CUDA\v11.3\bin下</p>
 <p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5-Quick-Start/f523de9f064584302815e7198a9ce8d2.png" alt="f523de9f064584302815e7198a9ce8d2.png"></p>
 <p>安装XXXTensorRT\TensorRT-8.2.5.1\python目录下tensorrt-8.2.5.1-cp39-none-win_amd64.whl：</p>
-<pre><code class="language-python">activate pytorch
+<pre><code>activate pytorch
 pip install tensorrt-8.2.5.1-cp39-none-win_amd64.whl -i https://pypi.tuna.tsinghua.edu.cn/simple
 </code></pre>
 <hr>
@@ -543,7 +543,7 @@ print(cudnn.is_acceptable(xx))
 pip install -r requirements.txt
 </code></pre>
 <p>测试：</p>
-<pre><code class="language-python">activate pytorch
+<pre><code>activate pytorch
 python detect.py
 </code></pre>
 <p>运行结果保存在XXX\yolov5-master\runs\detect\exp下</p>
@@ -639,14 +639,14 @@ target_link_libraries(yolov5 Threads::Threads) #12
 <p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5-Quick-Start/002ac33609ca3ed92bbd74548f1d795d.png" alt="002ac33609ca3ed92bbd74548f1d795d.png"></p>
 <p>复制XXX\Yolov5_Tensorrt_Win10-master\yolov5.cpp文件内容，替换XXX\tensorrtx\yolov5\yolov5.cpp内容</p>
 <p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5-Quick-Start/a609fdcb5f48f91987926abaf0c884dc.png" alt="a609fdcb5f48f91987926abaf0c884dc.png"></p>
-<p>修改yololayer.h文件20行中的类别数</p>
+<p>修改yololayer.h文件20行中的类别数（按需修改）</p>
 <pre><code>static constexpr int CLASS_NUM = 4;		# 修改类别数
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5-Quick-Start/9036edae98963c549472644b7135192e.png" alt="9036edae98963c549472644b7135192e.png"></p>
 <p>选择重新生成yolov5项目</p>
 <p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5-Quick-Start/5ee4470731059aba362c5bf2158772f1.png" alt="5ee4470731059aba362c5bf2158772f1.png"></p>
 <p>复制XXX\tensorrtx\yolov5\gen_wts.py到XXX\yolov5-master目录，执行以下代码：</p>
-<pre><code class="language-python">activate pytorch
+<pre><code>activate pytorch
 python gen_wts.py -w yolov5s.pt -o yolov5s.wts
 </code></pre>
 <p>复制XXX\yolov5-master\yolov5s.wts到XXX\tensorrtx\yolov5\build\Release下，执行以下代码：</p>
@@ -668,7 +668,7 @@ python gen_wts.py -w yolov5s.pt -o yolov5s.wts
 </code></pre>
 <p><img src="https://cdn.jsdelivr.net/gh/johnhillross/CDN/img/YOLOv5-Quick-Start/ef1a377e328c3bed7ecb19d9fe738d48.png" alt="ef1a377e328c3bed7ecb19d9fe738d48.png"></p>
 <p>测试：</p>
-<pre><code class="language-python">activate pytorch
+<pre><code>activate pytorch
 python python_trt.py
 </code></pre>
 <hr>
@@ -903,7 +903,7 @@ parser.add_argument('--batch-size', type=int, default=16, help='total batch size
 parser.add_argument('--workers', type=int, default=0, help='max dataloader workers (per RANK in DDP mode)')	# Windows系统下设置为0
 </code></pre>
 <p>开始训练：</p>
-<pre><code class="language-python">activate pytorch
+<pre><code>activate pytorch
 python train.py
 </code></pre>
 <h4 id="半自动辅助标注">半自动辅助标注：</h4>
@@ -911,7 +911,7 @@ python train.py
 <pre><code class="language-python">parser.add_argument('--save-txt', default=True, action='store_true', help='save results to *.txt')
 </code></pre>
 <p>运行detect.py：</p>
-<pre><code class="language-python">activate pytorch
+<pre><code>activate pytorch
 python detect.py
 </code></pre>
 <p>标签结果保存在XXX\yolov5-master\runs\detect\expX\labels中，复制labels到数据集目录下的lables中，执行以下代码即可在Annotation文件夹下生成labelme的标注格式JSON文件</p>
